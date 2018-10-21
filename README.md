@@ -7,7 +7,7 @@
     [2] structured data, unstructured data;   
     [3] Idea, Code, Experiment  
 - 深度学习基础
-    [1] 流程 
+    [1] 流程     
         - 前向传播计算代价函数
         - 反向传播计算偏导数
         - 优化
