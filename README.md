@@ -18,7 +18,13 @@
     [3] 权重系数随机初始化(应尽量小)    
 - 深度神经网络  
     [1] 系数矩阵的维度  
-    [2] 超参数: learning_rate / #iteration / # hidden layer L / # hidden units / choice of activation function  
+    [2] 超参数:  
+        - learning_rate  
+        - # iteration  
+        - # hidden layer L  
+        - # hidden units  
+        - choice of activation function  
+          
 2. Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
 3. Structuring Machine Learning Projects
 4. Convolutional Neural Networks
