@@ -12,8 +12,13 @@
         - 反向传播计算偏导数  
         - 优化  
     [2] Python广播机制  
-- 浅层神经网络
-- 深度神经网络
+- 浅层神经网络(1个隐藏层)      
+    [1] 线性函数  
+    [2] 激活函数    
+    [3] 权重系数随机初始化(应尽量小)    
+- 深度神经网络  
+    [1] 系数矩阵的维度  
+    [2] 超参数: learning_rate / #iteration / # hidden layer L / # hidden units / choice of activation function  
 2. Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
 3. Structuring Machine Learning Projects
 4. Convolutional Neural Networks
