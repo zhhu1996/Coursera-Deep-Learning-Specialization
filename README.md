@@ -52,6 +52,10 @@
     [3] Momentum  
         - 对dw, db进行滑动加权平均
         - beta=0.9效果较好  
+    [4] RMSprop  
+        - 对dw^2, db^2进行滑动加权平均  
+        - epsilon=10^-8效果较好  
+        
         
 
 3. Structuring Machine Learning Projects
