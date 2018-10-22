@@ -52,11 +52,31 @@
     [3] Momentum  
         - 对dw, db进行滑动加权平均
         - beta=0.9效果较好  
+        - 一般不进行偏差修正  
     [4] RMSprop  
         - 对dw^2, db^2进行滑动加权平均  
-        - epsilon=10^-8效果较好  
-        
-        
+        - epsilon=10^-8效果较好
+        - 一般不进行偏差修正  
+    [5] Adam  
+        - 结合了Momentum + RMSprop
+        - 偏差修正 
+        - 效果非常好  
+    [6] 学习率衰减  
+        - 在优化过程中不断改变学习率  
+        - 较晚考虑  
+- 超参数搜索, 批量归一化和编程框架  
+    [1] 超参数搜索  
+        - 随机搜索  
+        - 线性平均随机搜索  
+        - 指数平均随机搜索  
+    [2] 批量归一化  
+        - 训练集: 代入公式   
+        - 测试集: 对训练集的参数进行滑动加权平均  
+    [3] 多类别分类  
+        - softmax  
+        - 交叉熵  
+    [4] 深度学习框架  
+        - Tensorflow
 
 3. Structuring Machine Learning Projects
 4. Convolutional Neural Networks
