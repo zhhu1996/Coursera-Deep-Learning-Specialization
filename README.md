@@ -42,7 +42,8 @@
         - 输入归一化  
         - 挑选合适的权重进行初始化(He)  
         - 梯度检测  
-        
+- 优化算法  
+
 3. Structuring Machine Learning Projects
 4. Convolutional Neural Networks
 5. Sequence Models
