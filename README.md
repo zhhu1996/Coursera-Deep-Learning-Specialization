@@ -43,6 +43,16 @@
         - 挑选合适的权重进行初始化(He)  
         - 梯度检测  
 - 优化算法  
+    [1] 小批量梯度下降  
+        - 1 < size < m  
+        - mini-batch size = 64, 128, 256, 512  
+    [2] 指数加权滑动平均  
+        - 1/(1-beta)时间内的平均值
+        - 偏差修正  
+    [3] Momentum  
+        - 对dw, db进行滑动加权平均
+        - beta=0.9效果较好  
+        
 
 3. Structuring Machine Learning Projects
 4. Convolutional Neural Networks
