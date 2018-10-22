@@ -3,9 +3,9 @@
 ## 传送门: https://www.coursera.org/specializations/deep-learning
 1. Neural Networks and Deep Learning  
 - 深度学习介绍:   
-    [1] CNN, RNN   
-    [2] structured data, unstructured data;   
-    [3] Idea, Code, Experiment  
+    - CNN, RNN   
+    - structured data, unstructured data;   
+    - Idea, Code, Experiment  
 - 深度学习基础  
     [1] 流程     
     - 前向传播计算代价函数  
