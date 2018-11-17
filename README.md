@@ -93,5 +93,75 @@
         - avoidable bias
         - varience  
     
-4. Convolutional Neural Networks
+4. Convolutional Neural Networks  
+- 神经网络基础
+    - 边缘检测  
+    - 填充，步长  
+    - 卷积层，池化层，全连接层
+	- 为什么进行卷积？  
+        - 如何进行卷积？  
+    - 作业1: Convolutional model - Step by Step  
+	- 用Python搭建卷积神经网络  
+	- vert_start = stride * h  
+	- vert_end = vert_start + f  
+	- horiz_start = stride * w  
+	- horiz_end = horiz_start + f  
+    - 作业2: Convolutional Neural Networks: Application  
+	- 用tensorflow实现卷积神经网络，对人手表示的不同数字进行识别(分类问题)  
+	- tf.contrib.layers.flatten(P)  
+	- tf.contrib.layers.fully_connected(F, num_outputs)   
+- 神经网络经典模型
+    - LeNet-5  
+	- 2*Conv + 3*Fc  
+    - AlexNet  
+	- 5*Conv + 3*Fc  
+    - VGG-16  
+	- 13*Conv + 3*Fc
+    - ResNet  
+	- 残差块的组成  
+	- 为什么使用残差神经网路？  
+	- 残差神经网络的优点
+    - Inception  
+	- 1*1的卷积核有什么作用？  
+	- 实现: 将多个尺寸的卷积核一起使用  
+	- 瓶颈层  
+	- 将多个inception组合成Inception Network  
+    - 使用建议  
+    	- 迁移学习: 根据你的数据量选择需要训练的层数  
+    	- 数据增强: 当图像数据不足的时候，进行数据增强  
+	- 模型融合: 训练多个神经网络并对输出取平均值  
+	- 多种裁剪: 将网络运行在多个版本的测试集上，对输出取平均值  
+    - 作业1: Keras tutorial: Happy House    
+	- 运用keras搭建一个分类系统，对于happy的人输出1，unhappy的人输出0  
+	- 最终系统在给出的测试集中准确率达到98%，表现很好，但我自己上传了几张照片发现不能很好的判断，可能是因为图片的大小不是64*64导致信息丢失  
+    - 作业2: Residual Networks  
+	- 
+- 目标检测  
+    - 滑动窗口检测  
+	- 先训练一个能识别汽车图片的CNN，输入是经过裁剪的汽车图片（只包含汽车），输出是类别  
+	- 选用一定大小的f和stride分割测试集图片，将分割出的图片输入上一步的CNN中得到预测结果  
+	- 可以用卷积神经网络减少计算量  
+	- 但是，还有什么缺点？  
+	- 无法输出精确的边界框，目标物体可能不会出现在任何一个滑动窗口内  
+    - YOLO  
+	- 交并比(IoU),非最大值抑制(Non-max suppression),锚框(Anchor box)  
+	- 为什么要用anchor box以及它的缺陷  
+	- 一般将图片划分为19*19的网格(grid cell)，一般使用使用2个锚框(Anchor box)  
+	- 对每个测试图片进行预测，每个格子都会输出2个预测框，丢弃低得分的预测框，并对剩余的预测框进行非最大值抑制
+	    - 1) 选择最高得分的box  
+	    - 2) 计算它与所有其他box的IoU，并移除所有IoU>iou_threshold的box  
+	    - 3) 重复1)直到没有剩余的box  
+    - 候选区域  
+	- R-CNN, Fast R-CNN, Faster R-CNN   
+    - 作业:  Autonomous driving-Car detection  
+- 前沿应用: 人脸识别及图像风格迁移  
+    - 人脸验证  
+	- 案例: 人脸解锁手机  
+	- 1:1   
+    - 人脸识别  
+	- 案例: 公司人脸打卡  
+	- 1:n
+	- 如何训练？  
+	    - 
+
 5. Sequence Models
