@@ -23,8 +23,7 @@
         - #iteration  
         - #hidden layer L  
         - #hidden units  
-        - choice of activation function  
-          
+        - choice of activation function            
 2. Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization  
 - 深度学习实践   
     - 训练集/开发集/测试集  
@@ -77,7 +76,6 @@
         - 交叉熵  
     - 深度学习框架  
         - Tensorflow
-
 3. Structuring Machine Learning Projects  
 - 机器学习策略1  
     - 正交化超参数  
@@ -92,7 +90,6 @@
         - bayes error
         - avoidable bias
         - varience  
-    
 4. Convolutional Neural Networks  
 - 神经网络基础
     - 边缘检测  
@@ -209,3 +206,49 @@
     - 1D卷积: 应用于心电图  
     - 3D卷积: 应用于CAT扫描，视频处理  
 5. Sequence Models
+- 循环神经网络
+    - RNN的应用: 语音识别，音乐生成，情感分析，DNA序列分析，机器翻译，视频序列检测，序列识别(检测人名)  
+    - 如何表示输入数据？词汇表 + one-hot编码  
+    - 基本RNN模型: 一层RNN，输入是序列，如(batch_size, time_steps, features)，输出也是序列，如(batch_size, time_steps, n_a)。在RNN内部会对t个时刻进行循环运算，即a<t-1>会输入到第t个时刻与x<t>一起运算  
+    - 不同种类的RNN模型  
+        - one-to-one  
+        - one-to-many
+        - many-to-one
+        - many-to-many(Tx = Ty)
+        - many-to-many(Tx != Ty)
+    - 应用: 文本生成(单词级语言模型和字符级语言模型)  
+        - 训练: 令x<t>=y<t-1>，计算y_hat<t>=P( y<t> | y<1>, y<2>, ... , y<t-1> )，loss<t>=y<t>与y_hat<t>的交叉熵，loss=sum(loss<i>)，优化器优化总loss使其最小
+        - 预测(生成文本): x<1>=0，计算y_hat<0>，对其进行采样生成x<1>。每一步的x<t>都是根据y_hat<t-1>的概率分布对词汇表进行采样，然后再计算新的y_hat<t>
+        - 单词级语言模型计算量小，模型易训练，但是可能会出现未知词
+        - 字符级语言模型计算量大，模型难训练，但不会出现未知词
+    - 普通RNN具有的问题
+        - 梯度爆炸: 某一时刻的梯度太大以致更新后的梯度溢出，比较好解决，可以通过梯度裁剪(gradient clipping)
+        - 梯度消失: 因为时间序列太长，后面时刻的梯度很难传播到前面时刻，较好的解决方法: **GRU, LSTM**
+    - GRU
+        - 在普通RNN的基础上增加了记忆单元c<t>，并增加了更新门和相关性门对c<t>进行更新，而且a<t>=c<t>
+        - 更新门和相关性门都是根据c<t-1>与x<t>计算得到的，激活函数都使用sigmoid，值都在0-1之间
+        - 更新记忆单元的公式为: c<t> = Fu * c_hat<t> + (1-Fu) * c<t-1>
+        - 更新激活单元的公式为: a<t> = c<t>
+        - 由公式可知，当Fu=0时，c<t>=c<t-1>，不进行更新；当Fu=1时，c<t>=c_hat<t>，用当前时刻计算的值更新。这就大大缓解了梯度消失的问题(可类比残差神经网络)
+    - LSTM
+        - 在普通RNN的基础上增加了记忆单元c<t>，并增加了遗忘门，更新门，输出门对c<t>和a<t>进行更新，此处a<t>一般不等于c<t>
+        - 更新门，遗忘门，输出门都是根据c<t-1>与x<t>计算得到的，激活函数都使用sigmoid，值都在0-1之间
+        - 更新记忆单元的公式为: c<t> = Fu * c_hat<t> + Ff * c<t-1>
+        - 更新激活单元的公式为: a<t> = Fo * tanh(c<t>)
+    - BRNN
+        - 每一时刻**t**有两个RNN单元在工作，这里的RNN单元可以是基本RNN，GRU或者LSTM
+        - 第一个RNN考虑**1, 2, 3, ..., t-1**时刻的输出，第二个RNNl考虑**t+1, t+2, ..., n**时刻的输出，相当于t时刻的预测是综合考虑了前后序列的状态
+        - 缺点是实时性较差，需要得到整个序列才能开始运算
+    - 深度RNN模型：将多层RNN进行堆叠以获得更强大的学习效果
+    - 作业1：Building your Recurrent Neural Network - Step by Step
+        - 自己动手搭建基本RNN模型和LSTM模型
+        - RNN：前向传播还是很容易实现的，反向传播的时候注意梯度除了来自后一个时刻的梯度外，还要加上当前时刻的loss对需要更新的参数的梯度
+        - LSTM：这个前向传播也容易实现的，反向传播就坑了，达叔给的公式错了，纠正公式错误就花了不少时间，然后在对整个序列求梯度的时候原来的代码写错了，我自己参照助教的解释更新了代码
+    - 作业2：Character level language model - Dinosaurus land
+        - 对恐龙名字进行预测，其实就是一个字符级的语言模型
+        - 需要自己实现梯度裁剪，预测采样
+    - 作业3：Improvise a Jazz Solo with an LSTM Network
+        - 这是一个one-to-many的模型，在训练好的模型上生成了一段音乐，试听感觉不错，需要注意的是，这是一个多输入多输出的模型，运用keras进行搭建
+        - 由于这个模型存在30个损失函数，而优化器在优化的时候只能对一个值进行优化，所以是对30个损失函数的和进行优化
+        - 其他的就跟作业2差不多了，最后生成的音乐需要经过处理函数才能播放，不过达叔也帮我们写好了，只要调用下即可～
+    
