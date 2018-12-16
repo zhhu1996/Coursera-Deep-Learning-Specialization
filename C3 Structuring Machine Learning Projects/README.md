@@ -1,0 +1,14 @@
+Course 3: Structuring Machine Learning Projects  
+- 机器学习策略1  
+    - 正交化超参数  
+    - 设置单一的量化评估指标  
+        - (准确率，召回率) -> F1-score
+        - 优化指标(1个)和满足指标(N-1个)
+    - 开发集/测试集
+        - 必须来自同一分布
+        - 必须随机选取
+    - 修改评估指标
+    - bias/varience权衡
+        - bayes error
+        - avoidable bias
+        - varience  

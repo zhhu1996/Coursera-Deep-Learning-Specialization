@@ -1,0 +1,115 @@
+Course 4: Convolutional Neural Networks  
+- 神经网络基础
+    - 边缘检测  
+    - 填充，步长  
+    - 卷积层，池化层，全连接层
+        - 为什么进行卷积？  
+        - 如何进行卷积？  
+    - 作业1: Convolutional model - Step by Step  
+        - 用Python搭建卷积神经网络  
+        - vert_start = stride * h  
+        - vert_end = vert_start + f  
+        - horiz_start = stride * w  
+        - horiz_end = horiz_start + f  
+    - 作业2: Convolutional Neural Networks: Application  
+        - 用tensorflow实现卷积神经网络，对人手表示的不同数字进行识别(分类问题)  
+        - tf.contrib.layers.flatten(P)  
+        - tf.contrib.layers.fully_connected(F, num_outputs)  
+        - 经过训练，在训练集上的准确率达到94%，在测试集上的准确率达到78%，模型过拟合了  
+- 神经网络经典模型
+    - LeNet-5  
+        - 2*Conv + 3*Fc  
+    - AlexNet  
+        - 5*Conv + 3*Fc  
+    - VGG-16  
+        - 13*Conv + 3*Fc
+    - ResNet  
+        - 残差块的组成  
+        - 为什么使用残差神经网路？  
+        - 残差神经网络的优点
+    - Inception  
+        - 1*1的卷积核有什么作用？  
+        - 实现: 将多个尺寸的卷积核一起使用  
+        - 瓶颈层  
+        - 将多个inception组合成Inception Network  
+    - 使用建议  
+        - 迁移学习: 根据你的数据量选择需要训练的层数  
+        - 数据增强: 当图像数据不足的时候，进行数据增强  
+        - 模型融合: 训练多个神经网络并对输出取平均值  
+        - 多种裁剪: 将网络运行在多个版本的测试集上，对输出取平均值  
+    - 作业1: Keras tutorial: Happy House    
+        - 运用keras搭建一个分类系统，对于happy的人输出1，unhappy的人输出0  
+        - 最终系统在给出的测试集中准确率达到98%，表现很好，但我自己上传了几张照片发现不能很好的判断，可能是因为图片的大小不是64*64导致信息丢失  
+    - 作业2: Residual Networks  
+        - 运用keras搭建了一个50层的残差神经网络，对第一周的数字手势进行训练  
+        - 因为训练时间太长了，我直接加载了达叔训练好的模型，在测试集上的正确率达到86%，有很大提升  
+        - 但是我自己的上传的照片它还是识别错了，哈哈，可能是因为我吧手后面的作业本拍进去了，有太多的噪声  
+- 目标检测  
+    - 滑动窗口检测  
+        - 先训练一个能识别汽车图片的CNN，输入是经过裁剪的汽车图片（只包含汽车），输出是类别  
+        - 选用一定大小的f和stride分割测试集图片，将分割出的图片输入上一步的CNN中得到预测结果  
+        - 可以用卷积神经网络减少计算量  
+        - 但是，还有什么缺点？  
+        - 无法输出精确的边界框，目标物体可能不会出现在任何一个滑动窗口内  
+    - YOLO  
+        - 交并比(IoU),非最大值抑制(Non-max suppression),锚框(Anchor box)  
+        - 为什么要用anchor box以及它的缺陷  
+        - 一般将图片划分为19*19的网格(grid cell)，一般使用使用2个锚框(Anchor box)  
+        - 对每个测试图片进行预测，每个格子都会输出2个预测框，丢弃低得分的预测框，并对剩余的预测框进行非最大值抑制
+            - (1) 选择最高得分的box  
+            - (2) 计算它与所有其他box的IoU，并移除所有IoU>iou_threshold的box  
+            - (3) 重复(1)直到没有剩余的box  
+    - 候选区域  
+        - R-CNN, Fast R-CNN, Faster R-CNN   
+    - 作业:  Autonomous driving-Car detection  
+        - 主要实现yolo算法预测目标的部分，模型达叔帮我们训练好了
+        - 输入图片 (608, 608, 3)  
+        - 经过一个CNN训练, 得到一个 (19,19,5,85)的输出  
+            - 19*19的网格，5个anchor box  
+            - 85 = 5 + 80，5代表$(p_c, b_x, b_y, b_h, b_w)$有5项，80代表检测80个类别  
+        - 筛选锚框:  
+            - Score-thresholding: 丢弃得分低于score_threshold的box  
+            - Non-max suppression: 根据非最大值抑制算法进一步筛选box  
+        - 得到输出  
+- 前沿应用: 人脸识别及图像风格迁移  
+    - 人脸验证  
+        - 案例: 人脸解锁手机  
+        - 1:1   
+        - 网络训练方法:  
+            - 用logistic regression作为输出  
+            - 损失函数用j交叉熵(这一点达叔在视频中并没有提及，只是我的推测)  
+    - 人脸识别  
+        - 案例: 公司人脸打卡  
+        - 1:n 
+        - 网络训练方法:  
+            - 目标函数: triplet loss(A, P, N)  
+            - (A, P)应该选择同一个人，(A, N)应该选择不同的人  
+    - 作业1: Face Recognition for the Happy House  
+        - 主要实现人脸识别和人脸验证算法的预测部分，模型直接加载了达叔给的最优参数  
+        - 人脸验证(1:1): 
+            - 根据输入的(名字, 图片)计算编码  
+            - 跟数据库中该名字对应的图片的编码，与上一步的编码比对计算L2范数  
+            - 如果L2范数小于阈值(此处选择0.7)，表明是同一个人  
+        - 人脸识别(1:n):
+            - 只输入图片，根据该图片计算编码  
+            - 将该编码与数据库中所有的编码进行比较，筛选出L2范数最小的那个  
+            - 输出结果  
+    - 神经风格迁移  
+        - 根据图片C的内容(content)和图片S的风格(style)生成图片G  
+        - 这是一个无监督学习任务  
+        - 损失函数: alpha*J(C, G) + beta*J(S, G)  
+        - J(C, G): 选择预先训练好的卷积神经网络，计算第l层的激活函数，并求出两张图片对应的输出的距离  
+        - J(S, G): 
+            - 也是使用第l层的激活函数值  
+            - 计算不同通道间的相关系数(Style Matrix)  
+            - 计算风格矩阵的距离  
+            - 实践中，发现综合多层的值求平均后效果更好  
+    - 作业2:  Deep Learning & Art: Neural Style Transfer  
+        - 预先加载一个训练好的图像分类模型(VGG)  
+        - 通过C计算content cost  
+        - 通过S计算style cost  
+        - total cost = alpha*content_cost + beta*style_cost(一般取alpha=10，beta=40)  
+        - 参数: G的像素值是可训练的参数  
+        - 超参数: alpha, bate, 迭代次数，style layers各层的权重  
+    - 1D卷积: 应用于心电图  
+    - 3D卷积: 应用于CAT扫描，视频处理  

@@ -1,0 +1,23 @@
+Course 1: Neural Networks and Deep Learning  
+- 深度学习介绍:   
+    - CNN, RNN   
+    - structured data, unstructured data;   
+    - Idea, Code, Experiment  
+- 深度学习基础  
+    - 流程     
+        - 前向传播计算代价函数  
+        - 反向传播计算偏导数  
+        - 优化  
+        - Python广播机制  
+- 浅层神经网络(1个隐藏层)      
+    - 线性函数  
+    - 激活函数    
+    - 权重系数随机初始化(应尽量小)    
+- 深度神经网络(多个隐藏层)  
+    - 系数矩阵的维度  
+    - 超参数:  
+        - learning_rate  
+        - #iteration  
+        - #hidden layer L  
+        - #hidden units  
+        - choice of activation function                 
